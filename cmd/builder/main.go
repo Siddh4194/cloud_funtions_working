@@ -61,7 +61,7 @@ func storeTheImageToCloudStorage(ctx context.Context,imageName string) error {
 		return err
 	}
 
-	fileLocation := fmt.Sprintf("%s.tar",imageName)
+	fileLocation := fmt.Sprintf("bucket/%s.tar",imageName)
 	file,err := os.Create(fileLocation)
 	if err != nil {
 		return err
@@ -72,10 +72,12 @@ func storeTheImageToCloudStorage(ctx context.Context,imageName string) error {
 		return err
 	}
 
-	file.Close()
-	streamFile(ctx, fileLocation)
+	_, err = apiCLient.ImageRemove(ctx,imageName,client.ImageRemoveOptions{Force:true,PruneChildren:true})
 
-	os.Remove(fileLocation)
+	// file.Close()
+	// streamFile(ctx, fileLocation)
+
+	// os.Remove(fileLocation)
 	return nil
 }
 
