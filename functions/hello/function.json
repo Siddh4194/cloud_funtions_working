@@ -1,0 +1,6 @@
+{
+  "name": "hello",
+  "runtime": "node20",
+  "entry": "index.js",
+  "port": 3000
+}
